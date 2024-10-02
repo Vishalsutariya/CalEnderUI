@@ -27,14 +27,14 @@ import EditSubscriptionModal from './EditSubscriptionModal';
 import axios from 'axios';
 
 const Calendar = ({
-    currentMonth,
-    setCurrentMonth,
-    subscriptions,
-    setSubscriptions,
-    fetchSubscriptions,
-  }) => {
-//   const [currentMonth, setCurrentMonth] = useState(new Date());
-    // const [selectedDate, setSelectedDate] = useState(new Date());
+  currentMonth,
+  setCurrentMonth,
+  subscriptions,
+  setSubscriptions,
+  fetchSubscriptions,
+}) => {
+  //   const [currentMonth, setCurrentMonth] = useState(new Date());
+  // const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [modalIsOpen, setIsOpen] = useState(false);
   const [modalContent, setModalContent] = useState([]);
@@ -55,18 +55,18 @@ const Calendar = ({
   // Handle date click to show subscription details
   const onDateClick = day => {
     setSelectedDate(day);
-  
+
     const daySubscriptions = subscriptions.filter(sub => {
       const subStartDate = new Date(sub.startDate);
       const subEndDate = sub.endDate ? new Date(sub.endDate) : null;
       const isAfterStart = isSameDay(day, subStartDate) || day > subStartDate;
       const isBeforeEnd = subEndDate ? day <= subEndDate : true;
       const frequency = sub.frequency || 'monthly';
-  
+
       if (!isAfterStart || !isBeforeEnd) {
         return false;
       }
-  
+
       if (frequency === 'monthly') {
         return subStartDate.getDate() === day.getDate();
       } else if (frequency === 'yearly') {
@@ -78,13 +78,13 @@ const Calendar = ({
         return isSameDay(day, subStartDate);
       }
     });
-  
+
     if (daySubscriptions.length > 0) {
       setModalContent(daySubscriptions);
       setIsOpen(true);
     }
   };
-  
+
 
   const handleEdit = sub => {
     setSubscriptionToEdit(sub);
@@ -93,9 +93,9 @@ const Calendar = ({
 
   const handleDelete = async id => {
     try {
-        await axios.delete(`http://localhost:5001/api/subscriptions/${id}`, {
-            withCredentials: true,
-          });
+      await axios.delete(`http://localhost:5001/api/subscriptions/${id}`, {
+        withCredentials: true,
+      });
       setSubscriptions(prevSubs => prevSubs.filter(sub => sub._id !== id));
       setIsOpen(false);
     } catch (err) {
@@ -138,53 +138,53 @@ const Calendar = ({
 
     return (
       <Grid container>
-      {days.map((day, index) => (
-        <Grid item xs={1.714} key={index}>
-          <Typography
-            align="center"
-            variant="subtitle1"
-            sx={{ fontSize: { xs: '0.75rem', sm: '0.875rem', md: '1rem' } }}
-          >
-            {day}
-          </Typography>
-        </Grid>
-      ))}
-    </Grid>
+        {days.map((day, index) => (
+          <Grid item xs={1.714} key={index}>
+            <Typography
+              align="center"
+              variant="subtitle1"
+              sx={{ fontSize: { xs: '0.75rem', sm: '0.875rem', md: '1rem' } }}
+            >
+              {day}
+            </Typography>
+          </Grid>
+        ))}
+      </Grid>
     );
   };
 
   // Render the cells of the calendar
-const renderCells = () => {
+  const renderCells = () => {
     const monthStart = startOfMonth(currentMonth);
     const monthEnd = endOfMonth(monthStart);
     const startDate = startOfWeek(monthStart);
     const endDate = endOfWeek(monthEnd);
-  
+
     const dateFormat = 'd';
     const rows = [];
     let days = [];
     let day = startDate;
-  
+
     while (day <= endDate) {
       for (let i = 0; i < 7; i++) {
         const formattedDate = format(day, dateFormat);
         const cloneDay = day;
-  
+
         // Find subscriptions that occur on this day
         const daySubscriptions = subscriptions.filter(sub => {
           const subStartDate = new Date(sub.startDate);
           const subEndDate = sub.endDate ? new Date(sub.endDate) : null;
           const isOngoing = sub.ongoing;
           const frequency = sub.frequency || 'monthly';
-  
+
           // Check if the subscription is active on this day
           const isAfterStart = isSameDay(day, subStartDate) || day > subStartDate;
           const isBeforeEnd = subEndDate ? day <= subEndDate : true;
-  
+
           if (!isAfterStart || !isBeforeEnd) {
             return false;
           }
-  
+
           // Check recurrence
           if (frequency === 'monthly') {
             return subStartDate.getDate() === day.getDate();
@@ -198,10 +198,10 @@ const renderCells = () => {
             return isSameDay(day, subStartDate);
           }
         });
-  
+
         const isCurrentMonth = isSameMonth(day, monthStart);
         const isSelected = isSameDay(day, selectedDate);
-  
+
         days.push(
           <Grid item xs={1.714} key={day.toString()}>
             <Tooltip
@@ -221,8 +221,8 @@ const renderCells = () => {
                   backgroundColor: isSelected
                     ? 'primary.light'
                     : isCurrentMonth
-                    ? 'background.paper'
-                    : 'grey.200',
+                      ? 'background.paper'
+                      : 'grey.200',
                   position: 'relative',
                   cursor: 'pointer',
                   '&:hover': {
@@ -266,7 +266,7 @@ const renderCells = () => {
     }
     return <>{rows}</>;
   };
-  
+
   return (
     <>
       {renderHeader()}

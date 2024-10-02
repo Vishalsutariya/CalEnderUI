@@ -7,8 +7,11 @@ import {
   Fab,
   Card,
   CardContent,
+  Button,
+  ButtonBase,
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { ThemeProvider } from '@mui/material/styles';
 import { startOfMonth, endOfMonth } from 'date-fns';
 import theme from './theme';
@@ -17,12 +20,15 @@ import axios from 'axios';
 import { AuthContext } from './AuthContext';
 import Header from './Header';
 import Calendar from './Calendar';
+import Charts from './Charts';
+
 
 function App() {
   const { user } = useContext(AuthContext);
   const [subscriptions, setSubscriptions] = useState([]);
   const [isAddModalOpen, setAddModalOpen] = useState(false);
   const [currentMonth, setCurrentMonth] = useState(new Date());
+  const [showCharts, setShowCharts] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -113,57 +119,93 @@ function App() {
       <CssBaseline />
       <Header />
       <Container maxWidth="lg" sx={{ mt: 4 }}>
-        <Card sx={{ mb: 4, mx: { xs: 2, md: 0 } }}>
-        <CardContent>
-          <Typography variant="h6" align="center">
-            Total Subscription Amount for {currentMonth.toLocaleString('default', { month: 'long', year: 'numeric' })}
-          </Typography>
-          {Object.keys(totalsByCurrency).length > 0 ? (
-            Object.keys(totalsByCurrency).map(currency => (
-              <Typography key={currency} variant="subtitle1" align="center">
-                {currency}: {totalsByCurrency[currency].toFixed(2)}
-              </Typography>
-            ))
-          ) : (
-            <Typography variant="subtitle1" align="center">
-              No active subscriptions this month.
-            </Typography>
-          )}
-        </CardContent>
-
-        </Card>
-        <Calendar
-          currentMonth={currentMonth}
-          setCurrentMonth={setCurrentMonth}
-          subscriptions={subscriptions}
-          setSubscriptions={setSubscriptions}
-          fetchSubscriptions={fetchSubscriptions}
-        />
-        <Fab
-          color="primary"
-          aria-label="add"
-          onClick={() => setAddModalOpen(true)}
-          sx={{ position: 'fixed', bottom: 16, right: 16 }}
-        >
-          <AddIcon />
-        </Fab>
-        <AddSubscriptionModal
-          open={isAddModalOpen}
-          onClose={() => setAddModalOpen(false)}
-          onSave={async newSubscription => {
-            try {
-              const response = await axios.post(
-                'http://localhost:5001/api/subscriptions',
-                newSubscription,
-                { withCredentials: true }
-              );
-              setSubscriptions([...subscriptions, response.data]);
-              setAddModalOpen(false);
-            } catch (err) {
-              console.error(err);
-            }
+        <Card
+          sx={{
+            mb: 4,
+            mx: { xs: 2, md: 0 },
+            '&:hover': {
+              boxShadow: 6,
+            },
           }}
-        />
+        >
+          <ButtonBase
+            onClick={() => setShowCharts(true)}
+            sx={{ width: '100%', textAlign: 'inherit' }}
+          >
+            <CardContent>
+              <Typography variant="h6" align="center">
+                Total Subscription Amount for{' '}
+                {currentMonth.toLocaleString('default', {
+                  month: 'long',
+                  year: 'numeric',
+                })}
+              </Typography>
+              {Object.keys(totalsByCurrency).length > 0 ? (
+                Object.keys(totalsByCurrency).map(currency => (
+                  <Typography key={currency} variant="subtitle1" align="center">
+                    {currency}: {totalsByCurrency[currency].toFixed(2)}
+                  </Typography>
+                ))
+              ) : (
+                <Typography variant="subtitle1" align="center">
+                  No active subscriptions this month.
+                </Typography>
+              )}
+            </CardContent>
+          </ButtonBase>
+        </Card>
+
+
+        {showCharts ? (
+          // Show Charts View
+          <>
+            <Button
+              variant="outlined"
+              startIcon={<ArrowBackIcon />}
+              onClick={() => setShowCharts(false)}
+              sx={{ mb: 2 }}
+            >
+              Back to Calendar
+            </Button>
+            <Charts subscriptions={subscriptions} currentMonth={currentMonth} />
+          </>
+        ) : (
+          // Show Calendar View
+          <>
+            <Calendar
+              currentMonth={currentMonth}
+              setCurrentMonth={setCurrentMonth}
+              subscriptions={subscriptions}
+              setSubscriptions={setSubscriptions}
+              fetchSubscriptions={fetchSubscriptions}
+            />
+            <Fab
+              color="primary"
+              aria-label="add"
+              onClick={() => setAddModalOpen(true)}
+              sx={{ position: 'fixed', bottom: 16, right: 16 }}
+            >
+              <AddIcon />
+            </Fab>
+            <AddSubscriptionModal
+              open={isAddModalOpen}
+              onClose={() => setAddModalOpen(false)}
+              onSave={async newSubscription => {
+                try {
+                  const response = await axios.post(
+                    'http://localhost:5000/api/subscriptions',
+                    newSubscription,
+                    { withCredentials: true }
+                  );
+                  setSubscriptions([...subscriptions, response.data]);
+                  setAddModalOpen(false);
+                } catch (err) {
+                  console.error(err);
+                }
+              }}
+            />
+          </>
+        )}
       </Container>
     </ThemeProvider>
   );

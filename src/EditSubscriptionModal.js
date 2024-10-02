@@ -96,19 +96,19 @@ const EditSubscriptionModal = ({ open, onClose, onSave, subscription }) => {
           sx={{ mb: 2 }}
         />
         <TextField
-            select
-            label="Frequency"
-            name="frequency"
-            value={formData.frequency || 'monthly'}
-            onChange={handleChange}
-            fullWidth
-            required
-            sx={{ mb: 2 }}
+          select
+          label="Frequency"
+          name="frequency"
+          value={formData.frequency || 'monthly'}
+          onChange={handleChange}
+          fullWidth
+          required
+          sx={{ mb: 2 }}
         >
-            <MenuItem value="one-time">One-time</MenuItem>
-            <MenuItem value="monthly">Monthly</MenuItem>
-            <MenuItem value="yearly">Yearly</MenuItem>
-        {/* Add more frequencies if needed */}
+          <MenuItem value="one-time">One-time</MenuItem>
+          <MenuItem value="monthly">Monthly</MenuItem>
+          <MenuItem value="yearly">Yearly</MenuItem>
+          {/* Add more frequencies if needed */}
         </TextField>
         <TextField
           label="Start Date"
