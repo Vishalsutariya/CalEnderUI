@@ -29,7 +29,7 @@ A web application to manage and visualize your subscriptions using a calendar an
 
 ## Demo
 
-[Demo](demo/CalEnder_Demo.mp4)
+[![Watch the video](https://raw.githubusercontent.com/username/repository/branch/path/to/thumbnail.jpg)](https://raw.githubusercontent.com/username/repository/branch/path/to/video.mp4)
 
 ## Prerequisites
 
