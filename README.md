@@ -1,6 +1,133 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Subscription Calendar App
+
+A web application to manage and visualize your subscriptions using a calendar and charts. Built with **React**, **Material UI**, **Node.js**, **Express**, **MongoDB**, and **Chart.js**.
+
+## Table of Contents
+
+- [Features](#features)
+- [Demo](#demo)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Running the Application](#running-the-application)
+- [Available Scripts](#available-scripts)
+- [Project Structure](#project-structure)
+- [Dependencies](#dependencies)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Features
+
+- **Google OAuth Authentication**: Secure login using Google accounts.
+- **Responsive Design**: Works seamlessly on mobile, tablet, and desktop devices.
+- **Calendar View**: Visualize your subscriptions on a monthly calendar.
+- **Charts and Graphs**: Interactive charts to analyze subscription expenses over time.
+- **Dark Mode and Light Mode**: Toggle between themes based on your preference.
+- **Recurring Subscriptions**: Manage ongoing subscriptions with recurrence options.
+- **Add/Edit/Delete Subscriptions**: Full CRUD functionality for subscription management.
+
+## Demo
+
+A live demo of the application is available at: [https://your-app-url.com](https://your-app-url.com)
+
+*(Replace with your actual deployed URL)*
+
+## Prerequisites
+
+Before you begin, ensure you have the following installed on your local machine:
+
+- **Node.js** (version 14 or above)
+- **npm** (comes with Node.js)
+- **Git** (optional, for cloning the repository)
+- **MongoDB Atlas Account** (for cloud-hosted MongoDB database)
+- **Google API Credentials** (for Google OAuth authentication)
+
+## Installation
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/Vishalsutariya/CalEnderUI.git
+```
+
+### 2. Navigate to the Project Directory
+
+```bash
+cd calEnderUI
+```
+
+### 3. Install Dependencies
+
+```bash
+npm install
+```
+
+## Configuration
+
+### 1. Set Up Environment Variables
+
+Create a `.env` file in the root directory of the project:
+
+```bash
+touch .env
+```
+
+Add the following environment variables to the `.env` file:
+
+```env
+REACT_APP_API_BASE_URL=http://localhost:5001
+```
+
+- **REACT_APP_API_BASE_URL**: The URL where your backend server is running.
+
+### 2. Obtain Google API Credentials
+
+1. Go to the [Google Cloud Console](https://console.cloud.google.com/).
+2. Create a new project or select an existing one.
+3. Navigate to **APIs & Services** > **Credentials**.
+4. Click **Create Credentials** > **OAuth client ID**.
+5. Choose **Web application**.
+6. Set the **Authorized JavaScript origins** to `http://localhost:3000`.
+7. Set the **Authorized redirect URIs** to `http://localhost:3000/auth/google/callback`.
+8. After creating, you'll receive a **Client ID** and **Client Secret**.
+9. Use the **Client ID** in your `.env` file.
+
+### 3. Set Up the Backend Server
+
+You need the backend server running locally to handle API requests and authentication.
+
+- Clone the backend repository:
+
+  ```bash
+  git clone https://github.com/Vishalsutariya/CalEnderBackend.git
+  ```
+
+- Follow the setup instructions in the backend repository's README to install dependencies and configure environment variables.
+
+## Running the Application
+
+### 1. Start the Backend Server
+
+Make sure your backend server is running on `http://localhost:5001`.
+
+```bash
+# In the CalEnderBackend directory
+npm install
+npm start
+```
+
+### 2. Start the React Application
+
+```bash
+npm start
+```
+
+This runs the app in development mode.
+
+- Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- The page will reload if you make edits.
+- You will also see any lint errors in the console.
 
 ## Available Scripts
 
@@ -8,63 +135,96 @@ In the project directory, you can run:
 
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Runs the app in development mode at [http://localhost:3000](http://localhost:3000).
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Builds the app for production to the `build` folder.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### `npm test`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Launches the test runner in interactive watch mode.
 
 ### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+**Note:** This is a one-way operation. Use with caution.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Project Structure
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```
+subscription-frontend/
+├── public/
+│   ├── index.html
+│   └── ...
+├── src/
+│   ├── components/
+│   │   ├── AddSubscriptionModal.js
+│   │   ├── Calendar.js
+│   │   ├── Charts.js
+│   │   ├── Header.js
+│   │   └── ...
+│   ├── contexts/
+│   │   ├── AuthContext.js
+│   │   └── ColorModeContext.js
+│   ├── App.js
+│   ├── index.js
+│   ├── theme.js
+│   └── ...
+├── .env
+├── package.json
+├── README.md
+└── ...
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Dependencies
 
-## Learn More
+Key dependencies used in this project:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **React**: Frontend library for building user interfaces.
+- **Material UI (MUI)**: UI component library for React.
+- **Axios**: Promise-based HTTP client for making API requests.
+- **React Router**: Routing library for React applications.
+- **Chart.js** and **react-chartjs-2**: Libraries for creating charts and graphs.
+- **date-fns**: Modern JavaScript date utility library.
+- **@mui/icons-material**: Material Design icons for React.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Contributing
 
-### Code Splitting
+Contributions are welcome! Please follow these steps:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+1. **Fork the repository**.
+2. **Create a new branch** for your feature or bug fix:
 
-### Analyzing the Bundle Size
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+3. **Commit your changes**:
 
-### Making a Progressive Web App
+   ```bash
+   git commit -m "Add your message here"
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+4. **Push to the branch**:
 
-### Advanced Configuration
+   ```bash
+   git push origin feature/your-feature-name
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+5. **Create a Pull Request**.
 
-### Deployment
+## License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+This project is licensed under the MIT License.
 
-### `npm run build` fails to minify
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+If you have any questions or need further assistance, feel free to open an issue or contact the repository owner.
+
+---
+
+**Note:** Replace placeholder URLs, usernames, and other placeholders with actual information relevant to your project.
+
+---
+
+Let me know if you need any modifications or additional information in the README!
