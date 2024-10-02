@@ -1,5 +1,5 @@
 // src/App.js
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useMemo } from 'react';
 import {
   CssBaseline,
   Container,
@@ -12,19 +12,24 @@ import {
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { ThemeProvider } from '@mui/material/styles';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { startOfMonth, endOfMonth } from 'date-fns';
-import theme from './theme';
+// import theme from './theme';
 import AddSubscriptionModal from './AddSubscriptionModal';
 import axios from 'axios';
 import { AuthContext } from './AuthContext';
 import Header from './Header';
 import Calendar from './Calendar';
 import Charts from './Charts';
+import { ColorModeContext } from './ColorModeContext';
+import getDesignTokens from './theme';
+
 
 
 function App() {
   const { user } = useContext(AuthContext);
+  const { mode } = useContext(ColorModeContext);
+  const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
   const [subscriptions, setSubscriptions] = useState([]);
   const [isAddModalOpen, setAddModalOpen] = useState(false);
   const [currentMonth, setCurrentMonth] = useState(new Date());

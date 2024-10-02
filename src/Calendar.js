@@ -25,6 +25,7 @@ import {
 import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
 import EditSubscriptionModal from './EditSubscriptionModal';
 import axios from 'axios';
+import { useTheme } from '@mui/material/styles';
 
 const Calendar = ({
   currentMonth,
@@ -40,6 +41,7 @@ const Calendar = ({
   const [modalContent, setModalContent] = useState([]);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [subscriptionToEdit, setSubscriptionToEdit] = useState(null);
+  const theme = useTheme();
 
   // Handlers for navigating months
   const prevMonth = () => {
@@ -219,10 +221,10 @@ const Calendar = ({
                 sx={{
                   height: { xs: 80, sm: 100 },
                   backgroundColor: isSelected
-                    ? 'primary.light'
+                    ? theme.palette.primary.light
                     : isCurrentMonth
-                      ? 'background.paper'
-                      : 'grey.200',
+                      ? theme.palette.background.paper
+                      : theme.palette.action.hover,
                   position: 'relative',
                   cursor: 'pointer',
                   '&:hover': {
