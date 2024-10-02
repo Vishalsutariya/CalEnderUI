@@ -29,7 +29,7 @@ A web application to manage and visualize your subscriptions using a calendar an
 
 ## Demo
 
-[![Watch the video](https://raw.githubusercontent.com/username/repository/branch/path/to/thumbnail.jpg)](https://raw.githubusercontent.com/username/repository/branch/path/to/video.mp4)
+[Watch the video](https://github.com/Vishalsutariya/CalEnderUI/blob/c370ad8f18e352aa2317d35656b9277553efab97/demo/CalEnder_Demo.mp4)
 
 ## Prerequisites
 
