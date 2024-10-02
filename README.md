@@ -29,9 +29,7 @@ A web application to manage and visualize your subscriptions using a calendar an
 
 ## Demo
 
-A live demo of the application is available at: [https://your-app-url.com](https://your-app-url.com)
-
-*(Replace with your actual deployed URL)*
+[Watch the video](https://raw.githubusercontent.com/Vishalsutariya/CalEnderUI/readme-update/demo/CalEnder_Demo.mp4)
 
 ## Prerequisites
 
