@@ -93,9 +93,10 @@ const Calendar = ({
     setEditModalOpen(true);
   };
 
+  const apiUrl = process.env.REACT_APP_API_BASE_URL;
   const handleDelete = async id => {
     try {
-      await axios.delete(`http://localhost:5001/api/subscriptions/${id}`, {
+      await axios.delete(`${apiUrl}/api/subscriptions/${id}`, {
         withCredentials: true,
       });
       setSubscriptions(prevSubs => prevSubs.filter(sub => sub._id !== id));
@@ -330,7 +331,7 @@ const Calendar = ({
           onSave={async updatedSubscription => {
             try {
               const response = await axios.put(
-                `http://localhost:5001/api/subscriptions/${updatedSubscription._id}`,
+                `${apiUrl}/api/subscriptions/${updatedSubscription._id}`,
                 updatedSubscription,
                 { withCredentials: true }
               );

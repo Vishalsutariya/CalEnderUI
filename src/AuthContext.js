@@ -6,11 +6,11 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-
+  const apiUrl = process.env.REACT_APP_API_BASE_URL;
   useEffect(() => {
     // Fetch current user
     axios
-      .get('http://localhost:5001/auth/user', { withCredentials: true })
+      .get(`${apiUrl}/auth/user`, { withCredentials: true })
       .then(response => {
         setUser(response.data);
       })

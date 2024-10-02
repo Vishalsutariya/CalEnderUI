@@ -43,10 +43,11 @@ function App() {
     }
   }, [user]);
 
+  const apiUrl = process.env.REACT_APP_API_BASE_URL;
   const fetchSubscriptions = async () => {
     try {
       const response = await axios.get(
-        'http://localhost:5001/api/subscriptions',
+        `${apiUrl}/api/subscriptions`,
         { withCredentials: true }
       );
       setSubscriptions(response.data);

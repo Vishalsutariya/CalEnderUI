@@ -10,13 +10,14 @@ import Brightness7Icon from '@mui/icons-material/Brightness7';
 const Header = () => {
   const { user } = useContext(AuthContext);
   const { mode, toggleColorMode } = useContext(ColorModeContext);
-
+  const apiUrl = process.env.REACT_APP_API_BASE_URL;
+  // console.log('Base URL:', process.env.REACT_APP_API_BASE_URL);
   const handleLogin = () => {
-    window.open('http://localhost:5001/auth/google', '_self');
+    window.open(`${apiUrl}/auth/google`, '_self');
   };
 
   const handleLogout = () => {
-    window.open('http://localhost:5001/auth/logout', '_self');
+    window.open(`${apiUrl}/auth/logout`, '_self');
   };
 
   return (
